@@ -1,0 +1,9 @@
+#!/bin/csh -v
+#SBATCH --job-name="nf_methlyseq"
+#SBATCH --mail-type=BEGIN,END
+#SBATCH --time=96:00:00
+#SBATCH --partition="ccr,norm"
+
+
+cd $SLURM_SUBMIT_DIR
+sh $1
