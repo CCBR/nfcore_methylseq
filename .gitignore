@@ -9,3 +9,6 @@ testing*
 .vscode
 .nf-test
 test-datasets/
+
+# slurm
+slurm-*
