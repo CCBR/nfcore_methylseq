@@ -1,6 +1,6 @@
 process SAMTOOLS_SORT {
     tag "$meta.id"
-    label 'process_high'
+    label 'process_high_memory'
 
     conda "bioconda::samtools=1.17"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
@@ -21,8 +21,7 @@ process SAMTOOLS_SORT {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def sort_memory=$(echo $task.memory $task.cpus | awk '{printf("%d"),$1*1e6/$2/1024}')
-
+    def sort_memory = (task.memory.mega/task.cpus).intValue()
     if ("$bam" == "${prefix}.bam") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
     """
     samtools sort \\
